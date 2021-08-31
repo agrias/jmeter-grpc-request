@@ -29,6 +29,8 @@ public class ProtocInvoker {
     private static final Logger logger = LoggerFactory.getLogger(ProtocInvoker.class);
     private static final PathMatcher PROTO_MATCHER =
             FileSystems.getDefault().getPathMatcher("glob:**/*.proto");
+    private static final String PROTOC_VERSION = "v3.15.1";
+
 
     private final ImmutableList<Path> protocIncludePaths;
     private final Path discoveryRoot;
@@ -108,6 +110,7 @@ public class ProtocInvoker {
                 .addAll(includePathArgs(wellKnownTypesInclude))
                 .add("--descriptor_set_out=" + descriptorPath.toAbsolutePath().toString())
                 .add("--include_imports")
+                .add("-"+PROTOC_VERSION)
                 .build();
         invokeBinary(protocArgs);
 
